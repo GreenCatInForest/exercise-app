@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <title></title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Fitness Exercises App</h1>
+      <nav>
+        <ul>
+          <li>BMI calculator</li>
+          <li>Search the exersise</li>
+          <li>Groups of exersises</li>
+          <li>Groups of mussles</li>
+          <li>Find a gym near me</li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section>
+        <form>
+          <fieldset>
+            <legend>BMI calculator</legend>
+            <input
+              type="number"
+              id="ageBMI"
+              name="ageBMI"
+              placeholder="2-100"
+            />
+            <label for="ageBMI">Input your age</label><br />
+            <label><input type="radio" name="genderBMI" /> Female</label>
+            <label><input type="radio" name="genderBMI" /> Male</label>
+            <br />
+
+            <input
+              type="number"
+              id="weightBMI"
+              name="weightBMI"
+              placeholder="Your weight kilograms"
+            />
+            <label for="weightBMI">Your current weight </label> <br />
+
+            <input
+              type="number"
+              id="heightBMI"
+              name="heightBMI"
+              placeholder="Your height in sm"
+            />
+            <label for="heightBMI">Your current height </label> <br />
+            <button id="buttonBMI">Submit</button>
+          </fieldset>
+        </form>
+        <p>Your BMI result:</p>
+        <ul>
+          <p>Here is a text about your result:</p>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </section>
+
+      <section>
+        <form>
+          <fieldset>
+            <legend>Search the exersises</legend>
+            <input
+              type="text"
+              id="nameExercise"
+              name="nameExercise"
+              placeholder=""
+            />
+            <button id="buttonNameExercise" type="submit">Search</button>
+          </fieldset>
+        </form>
+
+        <h3>Your list of exercises 1</h3>
+        <div><p>Here will be the cards</p></div>
+      </section>
+
+      <section>
+        <form>
+          <fieldset>
+            <legend>Make a list of exersises for you</legend>
+            <h3>Choose the type of exersises</h3>
+            <label
+              ><input
+                type="checkbox"
+                id="cardio"
+                name="cardio"
+                value="cardio"
+              />cardio</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                id="olympic_weightlifting"
+                name="olympic_weightlifting"
+                value="olympic_weightlifting"
+              />olympic_weightlifting</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                id="plyometrics"
+                name="plyometrics"
+                value="plyometrics"
+              />plyometrics</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                id="powerlifting"
+                name="powerlifting"
+                value="powerlifting"
+              />powerlifting</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                id="strength"
+                name="strength"
+                value="strength"
+              />strength</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                id="stretching"
+                name="stretching"
+                value="stretching"
+              />stretching</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                id="strongman"
+                name="strongman"
+                value="strongman"
+              />strongman</label
+            >
+            <h3>Choose the group of mussles</h3>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" />
+            <button id="#buttonMusselesExercise">
+              Find for me right exersises!
+            </button>
+          </fieldset>
+        </form>
+      </section>
+      <h3>Your list of exercises 2</h3>
+      <div><p>Here will be the cards</p></div>
+    </main>
+    <footer>
+      <nav>
+        <ul>
+          <li>BMI calculator</li>
+          <li>Search the exersise</li>
+          <li>Groups of exersises</li>
+          <li>Groups of mussles</li>
+          <li>Find a gym near me</li>
+        </ul>
+      </nav>
+      <p>All rights reserved - PurpleBeard Bootcamp - Group 1 /list of us/</p>
+    </footer>
+    <script async src="assets/js/app.js" defer></script>
+  </body>
+</html>
