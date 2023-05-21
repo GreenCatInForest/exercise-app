@@ -97,9 +97,21 @@ const fetchExerciseByAllCheckboxes = () => {
     valuesTypeOfExercises.push(checkbox.value);
   });
   console.log(valuesTypeOfExercises);
-};
 
-//fetch the data for values from 3 arrays from API
+  //fetch the data for values from 3 arrays from API
+
+  valuesTypeOfExercises.forEach((type) =>
+    fetch("https://api.api-ninjas.com/v1/exercises?type=" + `${type}`, {
+      headers: { "X-Api-Key": apiKey },
+      contentType: "application/json",
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((error) => console.log(error))
+  );
+};
 
 // Handle the button after the checkboxes were completed
 
@@ -114,6 +126,7 @@ buttonAllParametersCheckerExercises.addEventListener(
   "click",
   buttonAllParametersCheckerExercisesHandler
 );
+
 /*
 const btn = document.querySelector('#btn');
         btn.addEventListener('click', (event) => {
