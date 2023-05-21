@@ -2,33 +2,15 @@ let nameExercise = document.querySelector("#nameExercise");
 let buttonNameExercise = document.querySelector("#buttonNameExercise");
 let resultNameExercise = document.querySelector("#resultNameExercise");
 
-let yourExercises = [];
-let newExercise;
+let buttonAllParametersCheckerExercises = document.querySelector(
+  "#buttonAllParametersCheckerExercises"
+);
 
 let checkboxTypeExercise = document.querySelectorAll(
   'input[name="typeOfExercises"]:checked'
 );
 
 let apiKey = "e2tk2aVVqC7JgZSqYZMu0w==XUAmhHQElchlx6Fi";
-
-// Create Exersise Card
-
-/*let cardExercise = (
-  name,
-  type,
-  muscle,
-  equipment,
-  difficulty,
-  instructions
-) => {
-  this.name = name;
-  this.type = type;
-  this.muscle = muscle;
-  this.equipment = equipment;
-  this.difficulty = difficulty;
-  this.instructions = instructions;
-};
-cardExercise.prototype.read = false; */
 
 // Get Exercises For The Input from Searchbar
 
@@ -42,9 +24,6 @@ const fetchExerciseByName = () => {
     .then((res) => res.json())
     .then((result) => {
       console.log(result);
-      /*resultNameExercise.innerHTML = JSON.stringify(result);
-      yourExercises.push(result);
-      console.log(yourExercises);*/
       result.map((value) => {
         for (let property in value) {
           let cardArticle = document.createElement("article");
@@ -80,6 +59,79 @@ buttonNameExercise.addEventListener("click", buttonNameExerciseHandler);
 
 // Get Exercises For The Input Checkbox Values
 
+const fetchExerciseByAllCheckboxes = () => {
+  //Declare variables for checked checkboxes
+
+  let checkboxesTypeOfDifficulty = document.querySelectorAll(
+    'input[name="typeOfDifficulty"]:checked'
+  );
+  let checkboxesTypeOfMussles = document.querySelectorAll(
+    'input[name="typeOfMussles"]:checked'
+  );
+  let checkboxesTypeOfExercises = document.querySelectorAll(
+    'input[name="typeOfExercises"]:checked'
+  );
+
+  //Made 3 arrays of checked checkboxes values
+
+  let valuesTypeOfDifficulty = [];
+  checkboxesTypeOfDifficulty.forEach((checkbox) => {
+    valuesTypeOfDifficulty.push(checkbox.value);
+  });
+  console.log(valuesTypeOfDifficulty);
+
+  // receiving the values without pushing to the array
+  /*
+  checkboxesTypeOfDifficulty.forEach((checkbox) => {
+    console.log(checkbox.value);
+  });*/
+
+  let valuesTypeOfMussles = [];
+  checkboxesTypeOfMussles.forEach((checkbox) => {
+    valuesTypeOfMussles.push(checkbox.value);
+  });
+  console.log(valuesTypeOfMussles);
+
+  let valuesTypeOfExercises = [];
+  checkboxesTypeOfExercises.forEach((checkbox) => {
+    valuesTypeOfExercises.push(checkbox.value);
+  });
+  console.log(valuesTypeOfExercises);
+};
+
+//fetch the data for values from 3 arrays from API
+
+// Handle the button after the checkboxes were completed
+
+buttonAllParametersCheckerExercisesHandler = (event) => {
+  event.preventDefault();
+  fetchExerciseByAllCheckboxes();
+};
+
+// Add eventlistener
+
+buttonAllParametersCheckerExercises.addEventListener(
+  "click",
+  buttonAllParametersCheckerExercisesHandler
+);
+/*
+const btn = document.querySelector('#btn');
+        btn.addEventListener('click', (event) => {
+            let checkboxes = document.querySelectorAll('input[name="color"]:checked');
+            let values = [];
+            checkboxes.forEach((checkbox) => {
+                values.push(checkbox.value);
+            });
+            alert(values);
+        });    
+
+        const cb = document.querySelector('#accept');
+        const btn = document.querySelector('#btn');
+        btn.onclick = () => {
+           alert(cb.value);
+        };
+*/
+
 /*
 const fetchExerciseByName = () => {
   let name = "biceps"; /*nameExercise.value;
@@ -93,22 +145,21 @@ const fetchExerciseByName = () => {
 };
 fetchExerciseByName();*/
 
-/*$.ajax({
-    method: "GET",
-    url: "https://api.api-ninjas.com/v1/exercises?muscle=" + name,
-    headers: { "X-Api-Key": apiKey },
-    contentType: "application/json",
-    success: function (result) {
-      console.log(result);
-    },
-    error: function ajaxError(jqXHR) {
-      console.error("Error: ", jqXHR.responseText);
-    },
-  });
-};
+// Create Exersise Card
 
-  fetch("https://api.api-ninjas.com/v1/exercises?muscle=" + name)
-    .then((res) => res.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-};*/
+/*let cardExercise = (
+  name,
+  type,
+  muscle,
+  equipment,
+  difficulty,
+  instructions
+) => {
+  this.name = name;
+  this.type = type;
+  this.muscle = muscle;
+  this.equipment = equipment;
+  this.difficulty = difficulty;
+  this.instructions = instructions;
+};
+cardExercise.prototype.read = false; */
