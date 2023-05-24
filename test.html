@@ -1,0 +1,66 @@
+let nameExercise = document.querySelector("#nameExercise"); let
+buttonNameExercise = document.querySelector("#buttonNameExercise"); let
+resultNameExercise = document.querySelector("#resultNameExercise"); let
+buttonAllParametersCheckerExercises = document.querySelector(
+"#buttonAllParametersCheckerExercises" ); let checkboxTypeExercise =
+document.querySelectorAll( 'input[name="typeOfExercises"]:checked' ); let apiKey
+= "e2tk2aVVqC7JgZSqYZMu0w==XUAmhHQElchlx6Fi"; // Get Exercises For The Input
+from Searchbar const fetchExerciseByName = () => { let name =
+`${nameExercise.value}`; fetch("https://api.api-ninjas.com/v1/exercises?muscle="
++ `${name}`, { headers: { "X-Api-Key": apiKey }, contentType:
+"application/json", }) .then((res) => res.json()) .then((result) => {
+console.log(result); result.map((value) => { for (let property in value) { let
+cardArticle = document.createElement("article"); cardArticle.innerHTML = `
+<div class="exerciseCard">
+  <h4 class="nameExercise">${value.name}</h4>
+  <p class="typeExercise">${value.type}</p>
+  <p class="muscleExercise">${value.muscle}</p>
+  <p class="equipmentExercise">${value.equipment}</p>
+  <p class="difficultyExercise">${value.difficulty}</p>
+  <p class="instructionsExercise">${value.instructions}</p>
+</div>
+<button class="info-button">+ info</button>`; document
+.querySelector("#resultNameExercise") .appendChild(cardArticle); return
+`${property}: ${value[property]}`; } }); }) .catch((error) =>
+console.log(error)); }; buttonNameExerciseHandler = (event) => {
+event.preventDefault(); fetchExerciseByName(); };
+buttonNameExercise.addEventListener("click", buttonNameExerciseHandler); // Get
+Exercises For The Input Checkbox Values const fetchExerciseByAllCheckboxes = ()
+=> { //Declare variables for checked checkboxes let checkboxesTypeOfDifficulty =
+document.querySelectorAll( 'input[name="typeOfDifficulty"]:checked' ); let
+checkboxesTypeOfMussles = document.querySelectorAll(
+'input[name="typeOfMussles"]:checked' ); let checkboxesTypeOfExercises =
+document.querySelectorAll( 'input[name="typeOfExercises"]:checked' ); //Made 3
+arrays of checked checkboxes values let valuesTypeOfMussles = []; let
+valuesTypeOfExercises = []; let valuesTypeOfDifficulty = []; let
+valuesTypeOfMusslesAll = []; let valuesTypeOfExercisesAll = []; let
+valuesTypeOfDifficultyAll = []; checkboxesTypeOfExercises.forEach((checkbox) =>
+{ valuesTypeOfExercises.push(checkbox.value); });
+console.log(valuesTypeOfExercises); checkboxesTypeOfMussles.forEach((checkbox)
+=> { valuesTypeOfMussles.push(checkbox.value); });
+console.log(valuesTypeOfMussles); checkboxesTypeOfDifficulty.forEach((checkbox)
+=> { valuesTypeOfDifficulty.push(checkbox.value); });
+console.log(valuesTypeOfDifficulty); let ConcantMusslesExercisesArray = () => {
+for (let i = 0; i < valuesTypeOfMussles.length; i++) { valuesTypeOfMusslesAll =
+valuesTypeOfMussles[0].push( valuesTypeOfMussles[i] ); return
+valuesTypeOfMusslesAll; } console.log(valuesTypeOfMusslesAll); };
+ConcantMusslesExercisesArray(); }; //fetch the data for values from 3 arrays
+from API valuesTypeOfExercises.forEach((type) =>
+fetch("https://api.api-ninjas.com/v1/exercises?type=" + `${type}`, { headers: {
+"X-Api-Key": apiKey }, contentType: "application/json", }) .then((res) =>
+res.json()) .then((resultType) => { console.log(resultType); }) .catch((error)
+=> console.log(error)) ); valuesTypeOfMussles.forEach((muscle) =>
+fetch("https://api.api-ninjas.com/v1/exercises?muscle=" + `${muscle}`, {
+headers: { "X-Api-Key": apiKey }, contentType: "application/json", })
+.then((res) => res.json()) .then((resultMuscle) => { console.log(resultMuscle);
+}) .catch((error) => console.log(error)) );
+valuesTypeOfDifficulty.forEach((difficulty) => fetch(
+"https://api.api-ninjas.com/v1/exercises?difficulty=" + `${difficulty}`, {
+headers: { "X-Api-Key": apiKey }, contentType: "application/json", } )
+.then((res) => res.json()) .then((resultDifficulty) => {
+console.log(resultDifficulty); }) .catch((error) => console.log(error)) ); //
+Handle the button after the checkboxes were completed
+buttonAllParametersCheckerExercisesHandler = (event) => {
+event.preventDefault(); fetchExerciseByAllCheckboxes(); }; // Add eventlistener
+buttonAllParametersCheckerExercises.addEventListener( "click",
+buttonAllParametersCheckerExercisesHandler );

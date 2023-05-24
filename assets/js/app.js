@@ -10,6 +10,18 @@ let checkboxTypeExercise = document.querySelectorAll(
   'input[name="typeOfExercises"]:checked'
 );
 
+//Made 3 arrays of checked checkboxes values
+
+let valuesTypeOfMussles = [];
+let valuesTypeOfExercises = [];
+let valuesTypeOfDifficulty = [];
+
+let valuesTypeOfMusslesAll = [];
+let valuesTypeOfExercisesAll = [];
+let valuesTypeOfDifficultyAll = [];
+
+let myChosenExercises = [];
+
 let apiKey = "e2tk2aVVqC7JgZSqYZMu0w==XUAmhHQElchlx6Fi";
 
 // Get Exercises For The Input from Searchbar
@@ -60,7 +72,7 @@ buttonNameExercise.addEventListener("click", buttonNameExerciseHandler);
 // Get Exercises For The Input Checkbox Values
 
 const fetchExerciseByAllCheckboxes = () => {
-  //Declare variables for checked checkboxes
+  //receive checked checkboxes
 
   let checkboxesTypeOfDifficulty = document.querySelectorAll(
     'input[name="typeOfDifficulty"]:checked'
@@ -72,33 +84,24 @@ const fetchExerciseByAllCheckboxes = () => {
     'input[name="typeOfExercises"]:checked'
   );
 
-  //Made 3 arrays of checked checkboxes values
+  // receiving checkboxes for fetch
 
-  let valuesTypeOfDifficulty = [];
-  checkboxesTypeOfDifficulty.forEach((checkbox) => {
-    valuesTypeOfDifficulty.push(checkbox.value);
-  });
-  console.log(valuesTypeOfDifficulty);
-
-  // receiving the values without pushing to the array
-  /*
-  checkboxesTypeOfDifficulty.forEach((checkbox) => {
-    console.log(checkbox.value);
-  });*/
-
-  let valuesTypeOfMussles = [];
-  checkboxesTypeOfMussles.forEach((checkbox) => {
-    valuesTypeOfMussles.push(checkbox.value);
-  });
-  console.log(valuesTypeOfMussles);
-
-  let valuesTypeOfExercises = [];
   checkboxesTypeOfExercises.forEach((checkbox) => {
     valuesTypeOfExercises.push(checkbox.value);
   });
   console.log(valuesTypeOfExercises);
 
-  //fetch the data for values from 3 arrays from API
+  checkboxesTypeOfMussles.forEach((checkbox) => {
+    valuesTypeOfMussles.push(checkbox.value);
+  });
+  console.log(valuesTypeOfMussles);
+
+  checkboxesTypeOfDifficulty.forEach((checkbox) => {
+    valuesTypeOfDifficulty.push(checkbox.value);
+  });
+  console.log(valuesTypeOfDifficulty);
+
+  //fetch an arrays of exersises for all chosen types
 
   valuesTypeOfExercises.forEach((type) =>
     fetch("https://api.api-ninjas.com/v1/exercises?type=" + `${type}`, {
@@ -106,12 +109,117 @@ const fetchExerciseByAllCheckboxes = () => {
       contentType: "application/json",
     })
       .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
+      .then((resultType) => {
+        for (let i = 0; i < resultType.length; i++) {
+          valuesTypeOfExercisesAll.push(resultType[i]);
+          cardConstructor("name", resultType[i]);
+        }
       })
       .catch((error) => console.log(error))
   );
+
+  //Check if the fetching types in array is working
+  console.log(valuesTypeOfExercisesAll);
+
+  //fetch an array of exersises for all chosen groups of mussles
+
+  valuesTypeOfMussles.forEach((muscle) =>
+    fetch("https://api.api-ninjas.com/v1/exercises?muscle=" + `${muscle}`, {
+      headers: { "X-Api-Key": apiKey },
+      contentType: "application/json",
+    })
+      .then((res) => res.json())
+      .then((resultMuscle) => {
+        for (let i = 0; i < resultMuscle.length; i++) {
+          valuesTypeOfMusslesAll.push(resultMuscle[i]);
+          cardConstructor("name", resultMuscle[i]);
+        }
+      })
+
+      .catch((error) => console.log(error))
+  );
+
+  //Check if the fetching mussles in array is working
+  console.log(valuesTypeOfMusslesAll);
+
+  //fetch an array of exersises for all chosen difficulties
+
+  valuesTypeOfDifficulty.forEach((difficulty) =>
+    fetch(
+      "https://api.api-ninjas.com/v1/exercises?difficulty=" + `${difficulty}`,
+      {
+        headers: { "X-Api-Key": apiKey },
+        contentType: "application/json",
+      }
+    )
+      .then((res) => res.json())
+      .then((resultdifficulty) => {
+        for (let i = 0; i < resultdifficulty.length; i++) {
+          valuesTypeOfDifficultyAll.push(resultdifficulty[i]);
+          cardConstructor("name", resultdifficulty[i]);
+        }
+      })
+      .catch((error) => console.log(error))
+  );
+
+  //Check if the fetching difficulties in array is working
+  console.log(valuesTypeOfDifficultyAll);
 };
+
+let cardConstructor = (property, value) => {
+  let cardArticle = document.createElement("article");
+  cardArticle.innerHTML = `
+                        <div class="exerciseCard">
+                          <h4 class="nameExercise">${value.name}</h4>
+                          <p class="typeExercise">${"Type of exercises:"} ${
+    value.type
+  }</p>
+                          <p class="muscleExercise">${"Mussles:"} ${
+    value.muscle
+  }</p>
+                          <p class="equipmentExercise">${"Equipment you need:"} ${
+    value.equipment
+  }</p>
+                          <p class="difficultyExercise">${"Level of difficulty:"} ${
+    value.difficulty
+  }</p>
+                          <p class="instructionsExercise">${"What to do:"} ${
+    value.instructions
+  }</p>
+                        </div> 
+                        <button class="info-button">+ info</button>`;
+
+  document.querySelector("#resultNameExercise").appendChild(cardArticle);
+};
+
+/*let checkerExercisePropertyValue = () => {
+  for (let i = 0; i < valuesTypeOfExercisesAll.length; i++) {
+    let exercise = valuesTypeOfExercisesAll[i];
+    let muscleMatch = valuesTypeOfMusslesAll.some(
+      (muscle) => muscle.muscle === exercise.muscle
+    );
+    let difficultyMatch = valuesTypeOfDifficultyAll.some(
+      (difficulty) => difficulty.difficulty === exercise.difficulty
+    );
+
+    if (muscleMatch && difficultyMatch) {
+      myChosenExercises.push(exercise);
+      console.log(exercise);
+    }
+  }
+};
+
+let checkerExercisePropertyValue = () => {
+  for (let k = 0; k < valuesTypeOfExercisesAll.length; k++) {
+    if (
+      valuesTypeOfExercisesAll.muscle === valuesTypeOfMussles.muscle &&
+      valuesTypeOfExercisesAll.difficulty === valuesTypeOfDifficulty.difficulty
+    ) {
+      myChosenExercises.push(valuesTypeOfExercisesAll[k]);
+      console.log(myChosenExercises);
+    } else console.log("mistake");
+  }
+};*/
 
 // Handle the button after the checkboxes were completed
 
@@ -126,53 +234,3 @@ buttonAllParametersCheckerExercises.addEventListener(
   "click",
   buttonAllParametersCheckerExercisesHandler
 );
-
-/*
-const btn = document.querySelector('#btn');
-        btn.addEventListener('click', (event) => {
-            let checkboxes = document.querySelectorAll('input[name="color"]:checked');
-            let values = [];
-            checkboxes.forEach((checkbox) => {
-                values.push(checkbox.value);
-            });
-            alert(values);
-        });    
-
-        const cb = document.querySelector('#accept');
-        const btn = document.querySelector('#btn');
-        btn.onclick = () => {
-           alert(cb.value);
-        };
-*/
-
-/*
-const fetchExerciseByName = () => {
-  let name = "biceps"; /*nameExercise.value;
-  fetch("https://api.api-ninjas.com/v1/exercises?muscle=" + `${name}`, {
-    headers: { "X-Api-Key": apiKey },
-    contentType: "application/json",
-  })
-    .then((res) => res.json())
-    .then((result) => console.log(result))
-    .catch((error) => console.log(error));
-};
-fetchExerciseByName();*/
-
-// Create Exersise Card
-
-/*let cardExercise = (
-  name,
-  type,
-  muscle,
-  equipment,
-  difficulty,
-  instructions
-) => {
-  this.name = name;
-  this.type = type;
-  this.muscle = muscle;
-  this.equipment = equipment;
-  this.difficulty = difficulty;
-  this.instructions = instructions;
-};
-cardExercise.prototype.read = false; */
